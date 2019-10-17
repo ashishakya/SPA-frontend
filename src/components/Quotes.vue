@@ -2,8 +2,10 @@
   <div>
     <button class="btn btn-primary" @click="getQuotes">Get Quote</button>
     <hr>
+
     <app-quote v-for="quote in quotes"
                :qt="quote"
+               :key="quote.id"
                @quoteUpdated="getQuotes"
                @quoteDeleted="onQuoteDeleted($event)">
     </app-quote>
@@ -26,10 +28,11 @@
         },
         methods: {
             getQuotes() {
-                const requestUrl = 'http://spa-backend.test/api/quotes';
-                axios.get(requestUrl)
+                const token = localStorage.getItem('token');
+                const requestUrl = 'quotes';
+                this.$http.get(requestUrl,{params:{token:token}})
                     .then((res) => this.quotes = res.data.quote)
-                    .catch((err) => console.log(err));
+                    .catch((err) => alert('Sign in first'));
             },
             onQuoteDeleted(id) {
                 const position = this.quotes.findIndex((element) => {

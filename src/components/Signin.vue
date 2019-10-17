@@ -1,9 +1,6 @@
 <template>
   <form>
-    <div class="form-group">
-      <label for="username">User Name</label>
-      <input type="text" id="username" name="username" class="form-control" v-model="username">
-    </div>
+    <h1>Sign in</h1>
     <div class="form-group">
       <label for="email">Email</label>
       <input type="text" id="email" name="email" class="form-control" v-model="email">
@@ -12,7 +9,7 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" class="form-control" v-model="password">
     </div>
-    <button type="submit" class="btn btn-primary" @click.prevent="signup">Signup</button>
+    <button type="submit" class="btn btn-primary" @click.prevent="signin">Signup</button>
   </form>
 </template>
 
@@ -20,23 +17,25 @@
     import axios from 'axios';
 
     export default {
-        name: "Signup",
+        name: "Signin",
         data() {
             return {
-                username: '',
                 email: '',
                 password: ''
             }
         },
         methods: {
-            //handle unproceessable entity @ errore
-            signup() {
-                const requestUrl = 'http://spa-backend.test/api/users';
-                axios.post(requestUrl, {name: this.username, email: this.email, password: this.password},
-                )
+            signin() {
+                // {'headers':{'X-Requested-With': 'XMLHttpRequest'}}
+                const requestUrl = 'http://spa-backend.test/api/users/signin';
+                axios.post(requestUrl, {email: this.email, password: this.password})
                     .then((response) => {
-                        alert('successfully registered. Now signin');
-                        this.$router.push({name:'signin'});
+                        const token = response.data.token;
+                        // decrypting the token
+                        const base64Url = token.split('.')[1];
+                        const base64Value = base64Url.replace('-','+').replace('_', '/');
+                        localStorage.setItem('token', token)
+                        this.$router.push({name:'quotes'});
                     })
                     .catch((error) => console.error(error, 'error'))
             }

@@ -3,9 +3,14 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <router-link to="/">Quotes</router-link> |
-          <router-link to="/new-quote">New Quote</router-link> |
+          <router-link to="/">Quotes</router-link>
+          |
+          <router-link to="/new-quote">New Quote</router-link>
+          |
           <router-link :to="{ name:'signup' }">Signup</router-link>
+          |
+          <router-link :to="{ name:'signin' }">Signin</router-link>
+          <a @click="logout">Logout</a>
         </div>
       </div>
       <hr>
@@ -28,12 +33,22 @@
         },
         components: {
             'app-new-quote': NewQuote
-        }
+        },
+        methods: {
+            logout() {
+                localStorage.setItem('token', '');
+                this.$router.push({name: 'signin'});
+            },
+        },
     }
 </script>
 
 <style>
-  #app{
+  #app {
     margin: 30px;
+  }
+
+  a {
+    cursor: pointer;
   }
 </style>

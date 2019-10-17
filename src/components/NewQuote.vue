@@ -20,10 +20,12 @@
         },
         methods: {
             submit() {
+                const token = localStorage.getItem('token');
                 const requestUrl = 'http://spa-backend.test/api/quote';
-                axios.post(requestUrl, {
-                    content: this.content
-                }).then((response) => console.log(response, 'success'))
+                axios.post(requestUrl,
+                    {content: this.content},
+                    {params: {token: token}
+                }).then((response) =>{this.content=''; alert('successfully added')})
                     .catch((error) => console.error(error, 'error'))
             }
         }

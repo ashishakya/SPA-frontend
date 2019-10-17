@@ -1,36 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueRouter from 'vue-router';
+import axios from 'axios';
+import router from  './routes'
 
+const base = axios.create({
+  baseURL: 'http://spa-backend.test/api/'
+});
 
-const routes = [
-  {
-    path: '',
-    component: Quotes
-  },
-  {
-    path: '/new-quote',
-    component: NewQuote
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: Signup
-  }
-];
-
-import Quotes from "./components/Quotes";
-import NewQuote from "./components/NewQuote";
-import Signup from "./components/Signup";
-
-
-Vue.use(VueRouter);
-
-const router = new VueRouter({
-  mode: 'history',
-  routes
-})
-
+Vue.prototype.$http = base
 
 new Vue({
   el: '#app',
