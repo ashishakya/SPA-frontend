@@ -1,0 +1,38 @@
+<template>
+  <div id="app">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <router-link to="/">Quotes</router-link> |
+          <router-link to="/new-quote">New Quote</router-link>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-12">
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+    import NewQuote from "./components/NewQuote";
+
+    export default {
+        name: 'app',
+        data() {
+            return {}
+        },
+        components: {
+            'app-new-quote': NewQuote
+        }
+    }
+</script>
+
+<style>
+  #app{
+    margin: 30px;
+  }
+</style>
