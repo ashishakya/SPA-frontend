@@ -11,11 +11,17 @@ const routes = [
   {
     path: '/new-quote',
     component: NewQuote
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: Signup
   }
 ];
 
 import Quotes from "./components/Quotes";
 import NewQuote from "./components/NewQuote";
+import Signup from "./components/Signup";
 
 
 Vue.use(VueRouter);

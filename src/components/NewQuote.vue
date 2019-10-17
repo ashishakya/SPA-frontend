@@ -23,8 +23,8 @@
                 const requestUrl = 'http://spa-backend.test/api/quote';
                 axios.post(requestUrl, {
                     content: this.content
-                }).then((response) => console.log(response))
-                    .catch((error) => console.log(error))
+                }).then((response) => console.log(response, 'success'))
+                    .catch((error) => console.error(error, 'error'))
             }
         }
     }
